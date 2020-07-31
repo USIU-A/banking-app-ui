@@ -1,48 +1,69 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import { useHistory, useLocation } from "react-router-dom";
+import "./transactions.css";
 
-import TransactionSelector from './transactionSelector/transaction-selector';
+import TransactionSelector from "./transactionSelector/transaction-selector";
 
 
-class Transactions extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {  }
-    }
+const initialFormData = Object.freeze({
+    type:"",
+    amount: ""
+  });
 
-    selectTransaction(transactionType){
-        console.log(transactionType);
-    }
+export default function Transactions() {
 
-    handleSubmit(){
-        console.log("Submitted");
-    }
+  let history = useHistory();
 
-    render() { 
-        return ( 
-            <form
-            onSubmit = {this.g=this.handleSubmit()}
-            >
-            <h3>Transactions</h3>
-            <TransactionSelector
-              choices={["Balance", "Deposit", "Withdraw"]}
-              default="Balance"
-              onChange={(transactionType) => this.selectTransaction(transactionType)}
-            />
-            <div className="form-group">
-              <label>Amount</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Enter Transaction Amount"
-              />
-            </div>
-    
-            <button type="submit" className="btn btn-primary btn-block">
-              Submit
-            </button>
-          </form>
-        );
-    }
+  const [formData, updateFormData] = React.useState(initialFormData);
+
+  const handleChange = (e) => {
+    updateFormData({
+      ...formData,
+
+      // Trimming any whitespace
+      [e.target.name]: e.target.value.trim(),
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+    history.push('/verify');
+    // ... submit to API
+  };
+
+  return (
+    <form
+    // onSubmit = {this.g=this.handleSubmit()}
+    >
+      <h3>Transactions</h3>
+      <TransactionSelector
+        name="type"
+        choices={["Deposit", "Withdraw"]}
+        default="Deposit"
+        onChange={(transactionType) => console.log(transactionType)}
+      />
+      <div className="form-group">
+        <label>Amount</label>
+        <input
+          type="text"
+          name="amount"
+          className="form-control"
+          placeholder="Enter Transaction Amount"
+          onChange={handleChange}
+        />
+      </div>
+
+      <button
+        type="submit"
+        className="btn btn-primary btn-block transaction-button"
+        onClick={handleSubmit}
+      >
+        Submit
+      </button>
+      <div className="balance">
+        <h3>Balance: 0.00</h3>
+      </div>
+    </form>
+  );
 }
- 
-export default Transactions;

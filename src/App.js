@@ -41,6 +41,7 @@ function App() {
               <Route path="/sign-in" component={Login} />
               <Route path="/register" component={Register} />
               <Route path="/transaction" component={Transactions}/>
+              <Route path="/verify" component={Confirmation}/>
             </Switch>
           </div>
         </div>
