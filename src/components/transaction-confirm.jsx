@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { useHistory, useLocation } from "react-router-dom";
+import './transaction-confirm.css';
 
 
 const initialFormData = Object.freeze({
@@ -35,11 +36,11 @@ export default function Confirmation () {
         <h3>Confirm Transaction</h3>
 
         <div className="form-group">
-          <label>Enter transaction authentication code</label>
+          <label className="code-label">Enter transaction authentication code</label>
           <input
             type="text"
             name="code"
-            className="form-control"
+            className="form-control code-input"
             placeholder="XXXXXX"
             onChange={handleChange}
           />
@@ -47,7 +48,7 @@ export default function Confirmation () {
 
         <button 
         type="submit" 
-        className="btn btn-primary btn-block"
+        className="btn btn-primary btn-block code-button"
         onClick={handleSubmit}>
           Submit
         </button>

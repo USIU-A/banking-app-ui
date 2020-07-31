@@ -39,9 +39,13 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
-    fakeAuth.authenticate(() => history.push('/transaction'));
+    fakeAuth.authenticate(() => history.push("/transaction"));
     // ... submit to API
   };
+
+  const register = (e) => {
+    history.push("/register");
+  }
 
   return fakeAuth.isAuthenticated ? (
     <Transactions />
@@ -80,11 +84,12 @@ export default function Login() {
           />
         </div>
       </div>
-      <button 
-       className="btn btn-primary btn-block"
-       onClick={handleSubmit}>
-           Submit
+      <button className="btn btn-primary btn-block" onClick={handleSubmit}>
+        Submit
       </button>
+      <p className="forgot-password text-right">
+        Not registered? <a href="#" onClick={register}>Register here</a>
+      </p>
     </form>
   );
 }

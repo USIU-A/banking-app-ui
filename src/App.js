@@ -8,17 +8,22 @@ import Confirmation from './components/transaction-confirm';
 import Transactions from './components/transactions';
 
 function App() {
+
+  const refreshApp = () => {
+    window.location.reload(false);
+  }
+
   return (
     <Router>
       <div className="App">
         <nav className="navbar navbar-expand-lg navbar-light fixed-top">
           <div className="container">
-            <Link className="navbar-brand" to={"/sign-in"}>USIU Bank</Link>
+            <a className="navbar-brand" href="#" onClick={refreshApp}><Link className="navbar-brand" to={"/sign-in"}>USIU Bank</Link></a>      
             <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
               <ul className="navbar-nav ml-auto">
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <Link className="nav-link" to={"/sign-in"}>Login</Link>
-                </li>
+                </li> */}
                 <li className="nav-item">
                   <Link className="nav-link" to={"/register"}>Register</Link>
                 </li>
