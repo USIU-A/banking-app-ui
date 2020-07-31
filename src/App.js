@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link, Redirect, useHistory, useLocation } from "react-router-dom";
 import Login from './components/login';
 import Register from './components/register';
 import Confirmation from './components/transaction-confirm';
@@ -22,6 +22,12 @@ function App() {
                 <li className="nav-item">
                   <Link className="nav-link" to={"/register"}>Register</Link>
                 </li>
+                {/* <li className="nav-item">
+                  <Link className="nav-link" to={"/transaction"}>Transactions</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to={"/transaction-confirm"}>Confirmation</Link>
+                </li> */}
               </ul>
             </div>
           </div>
@@ -34,6 +40,7 @@ function App() {
               <Route exact path='/' component={Login} />
               <Route path="/sign-in" component={Login} />
               <Route path="/register" component={Register} />
+              <Route path="/transaction" component={Transactions}/>
             </Switch>
           </div>
         </div>
