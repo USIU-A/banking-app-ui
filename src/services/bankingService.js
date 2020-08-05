@@ -1,10 +1,10 @@
 import {get, post} from './apiService';
 
-const REGISTER_URL = '';
+const REGISTER_URL = 'http://localhost:5000/api/v1/banking/createaccount';
 
-const LOGIN_URL = '';
+const LOGIN_URL = 'http://localhost:5000/api/v1/banking/login';
 
-const BALANCE_URL = '';
+const BALANCE_URL = 'http://localhost:5000/api/v1/banking/getbalance';
 
 const DEPOSIT_URL = '';
 
@@ -37,31 +37,17 @@ export function checkBalance(token){
     return get(BALANCE_URL, {token});
 }
 
-export function deposit(token, amount){
-    const transactionDetail = {
-        transactionToken: token,
-        transactionType: "Deposit",
-        transactionAmount: amount
-    }
-
-    return post(DEPOSIT_URL, token, JSON.stringify(transactionDetail))
+export function deposit(transaction){
+    const token = transaction.transactionToken;
+    return post(DEPOSIT_URL, token, JSON.stringify(transaction))
 }
 
-export function withdraw(token, amount){
-    const transactionDetail = {
-        transactionToken: token,
-        transactionType: "Withdraw",
-        transactionAmount: amount
-    }
-
-    return post(WITHDRAW_URL, token, JSON.stringify(transactionDetail))
+export function withdraw(transaction){
+    const token = transaction.transactionToken;
+    return post(WITHDRAW_URL, token, JSON.stringify(transaction))
 }
 
-export function verify(token, code){
-    const transactionDetail ={
-        transactionToken: token,
-        confirmationToken: code
-    }
-
-    return post(VERIFY_URL, token, JSON.stringify(transactionDetail))
+export function verify(transaction){
+    const token = transaction.transactionToken;
+    return post(VERIFY_URL, token, JSON.stringify(transaction))
 }

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 
+import { registerUser } from "../store/epic/transactionsEpic";
+
 const initialFormData = Object.freeze({
     firstName: "",
     lastName: "",
@@ -8,7 +10,7 @@ const initialFormData = Object.freeze({
     password: ""
   });
 
-export default function Register () {
+export default function Register (props) {
 
     let history = useHistory();
 
@@ -25,14 +27,28 @@ export default function Register () {
     
       const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData);
-        history.push("/sign-in")
-        // ... submit to API
+        const [apiCall, apiDispatch] = window.store.banking;
+        registerUser(formData.firstName, formData.lastName, formData.email, formData.password, apiDispatch)
+        .then((result) => {
+          const [banking] = window.store.banking;
+          if(banking.appUser && banking.appUser.isSuccessfull){
+            alert(banking.appUser.message);
+            history.push("/sign-in");
+          }else if(banking.appUser && !banking.appUser.isSuccessfull){
+            alert(banking.appUser.message);
+          }else{
+            alert("Oops! Something went wrong. Please try again.");
+          }
+        });
       };
 
+      const refreshApp = () => {
+        window.location.reload(false);
+      }
+
       const handleClick = (e) => {
-        history.push("/sign-in")
-        // ... submit to API
+        history.push("/sign-in");
+        window.location.reload(false);
       };
     
     return (

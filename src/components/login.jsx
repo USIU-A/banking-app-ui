@@ -1,25 +1,14 @@
-import React, { Component } from "react";
+import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import Transactions from "./transactions";
 
-const fakeAuth = {
-  isAuthenticated: false,
-  authenticate(cb) {
-    fakeAuth.isAuthenticated = true;
-    setTimeout(cb, 100); // fake async
-  },
-  signout(cb) {
-    fakeAuth.isAuthenticated = false;
-    setTimeout(cb, 100);
-  },
-};
+import { loginUser } from "../store/epic/transactionsEpic";
 
 const initialFormData = Object.freeze({
   email: "",
   password: "",
 });
 
-export default function Login() {
+export default function Login(props) {
   let history = useHistory();
   let location = useLocation();
 
@@ -39,17 +28,28 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
-    fakeAuth.authenticate(() => history.push("/transaction"));
     // ... submit to API
+    const [apiCall, apiDispatch] = window.store.banking;
+    loginUser(formData.email, formData.password, apiDispatch)
+    .then((result) => {
+      const [banking] = window.store.banking;
+
+      if(banking.authUser && banking.authUser.isAuthenticated){
+        history.push("/transaction");
+      }else if(banking.authUser && !banking.authUser.isAuthenticated){
+        alert(banking.authUser.message);
+      }else{
+        alert("Oops! Something went wrong. Please try again.");
+      }
+    });
+
   };
 
   const register = (e) => {
     history.push("/register");
   }
 
-  return fakeAuth.isAuthenticated ? (
-    <Transactions />
-  ) : (
+  return  (
     <form onSubmit={(event) => console.log(event)}>
       <h3>Sign In</h3>
 

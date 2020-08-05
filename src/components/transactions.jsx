@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import "./transactions.css";
 
@@ -6,11 +6,20 @@ import TransactionSelector from "./transactionSelector/transaction-selector";
 
 
 const initialFormData = Object.freeze({
-    type:"",
-    amount: ""
+  transactionToken: '',
+  confirmationToken: '',
+  transactionType: 0,
+  transactionAmount: 0.00,
+  balanceAmount: 0.00,
+  isValid: false,
+  isPosted: false
   });
 
-export default function Transactions() {
+export default function Transactions(props) {
+
+  const[banking] = window.store.banking;
+
+  console.log(banking.authUser);
 
   let history = useHistory();
 

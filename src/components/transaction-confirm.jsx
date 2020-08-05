@@ -40,6 +40,7 @@ export default function Confirmation () {
           <input
             type="text"
             name="code"
+            maxLength="6"
             className="form-control code-input"
             placeholder="XXXXXX"
             onChange={handleChange}
