@@ -1,16 +1,16 @@
 import {get, post} from './apiService';
 
-const REGISTER_URL = 'http://localhost:5000/api/v1/banking/createaccount';
+const REGISTER_URL = 'http://178.128.166.212/api/v1/banking/createaccount';
 
-const LOGIN_URL = 'http://localhost:5000/api/v1/banking/login';
+const LOGIN_URL = 'http://178.128.166.212/api/v1/banking/login';
 
-const BALANCE_URL = 'http://localhost:5000/api/v1/banking/getbalance';
+const BALANCE_URL = 'http://178.128.166.212/api/v1/banking/getbalance';
 
-const DEPOSIT_URL = 'http://localhost:5000/api/v1/banking/depositamount';
+const DEPOSIT_URL = 'http://178.128.166.212/api/v1/banking/depositamount';
 
-const WITHDRAW_URL = 'http://localhost:5000/api/v1/banking/withdrawamount';
+const WITHDRAW_URL = 'http://178.128.166.212/api/v1/banking/withdrawamount';
 
-const VERIFY_URL = 'http://localhost:5000/api/v1/banking/verify';
+const VERIFY_URL = 'http://178.128.166.212/api/v1/banking/verify';
 
 
 export function registerUser(firstName, lastName, email, password){
